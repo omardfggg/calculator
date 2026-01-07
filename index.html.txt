@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>آلة حاسبة</title>
+  <style>
+    body{margin:0;display:flex;min-height:100vh;align-items:flex-end;justify-content:center;background:#000;font-family:system-ui}
+    .calc{width:min(420px,100vw);padding:16px;box-sizing:border-box}
+    .screen{background:#1f1f25;border-radius:22px;padding:18px;height:140px;display:flex;align-items:center;justify-content:flex-end}
+    .screen span{font-size:64px;color:#00ff99;font-weight:700;word-break:break-all}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+    button{height:68px;border:0;border-radius:16px;font-size:28px;font-weight:700;background:#2a2a32;color:#fff}
+    button.op{background:#f0a13a;color:#111}
+    button.eq{background:#31c46a;color:#111}
+    button.clr{background:#e45757}
+    button:active{transform:scale(0.98)}
+  </style>
+</head>
+<body>
+  <div class="calc">
+    <div class="screen"><span id="d">0</span></div>
+
+    <div class="grid">
+      <button class="clr" onclick="clr()">C</button>
+      <button onclick="p('/')">÷</button>
+      <button onclick="p('*')">×</button>
+      <button class="op" onclick="p('-')">−</button>
+
+      <button onclick="p('7')">7</button>
+      <button onclick="p('8')">8</button>
+      <button onclick="p('9')">9</button>
+      <button class="op" onclick="p('+')">+</button>
+
+      <button onclick="p('4')">4</button>
+      <button onclick="p('5')">5</button>
+      <button onclick="p('6')">6</button>
+      <button class="eq" onclick="eq()">=</button>
+
+      <button onclick="p('1')">1</button>
+      <button onclick="p('2')">2</button>
+      <button onclick="p('3')">3</button>
+      <button onclick="p('0')">0</button>
+    </div>
+  </div>
+
+<script>
+  const d = document.getElementById('d');
+  function p(v){
+    if(d.textContent === "0") d.textContent = v;
+    else d.textContent += v;
+  }
+  function clr(){ d.textContent = "0"; }
+  function eq(){
+    try{
+      d.textContent = String(Function("return ("+d.textContent+")")());
+    }catch(e){
+      d.textContent = "خطأ";
+    }
+  }
+</script>
+</body>
+</html>
